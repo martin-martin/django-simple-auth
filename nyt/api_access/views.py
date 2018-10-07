@@ -41,3 +41,8 @@ def frontpage(request):
 def signout(request):
     logout(request)
     return redirect('/')
+
+
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
