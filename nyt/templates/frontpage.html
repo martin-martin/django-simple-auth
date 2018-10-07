@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+  <h2>Sign in</h2>
+  {% if signinform.errors %}
+    {% for field in signinform %}
+      {% for error in field.errors %}
+        <div>
+          <b>{{ error|escape }}</b>
+        </div>
+      {% endfor %}
+    {% endfor %}
+    {% for error in signinform.non_field_errors %}
+      <div>
+        <b>{{ error|escape }}</b>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form action="." method="post">
+    {% csrf_token %}
+
+    {% for field in signinform %}
+      <div>
+        {{ field }}
+      </div>
+    {% endfor %}
+
+    <input type="submit" value="Sign in" name="signinform">
+  </form>
+</div>
+
+<div>
+  <h3>Don't have an account yet?</h3>
+
+  {% if signupform.non_field_errors %}
+    <div>
+      {{ signupform.non_field_errors }}
+    </div>
+  {% endif %}
+
+  {% if signupform.errors %}
+    {% for field in signupform %}
+      {% for error in field.errors %}
+        <div>
+          <b>{{ error|escape }}</b>
+        </div>
+      {% endfor %}
+    {% endfor %}
+    {% for error in signupform.non_field_errors %}
+      <div>
+        <b>{{ error|escape }}</b>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form action="." method="post">
+    {% csrf_token %}
+
+    {% for field in signupform %}
+      <div>
+        {{ field }}
+      </div>
+    {% endfor %}
+
+    <input type="submit" value="Sign up" name="signupform">
+  </form>
+</div>
+
+{% endblock %}
