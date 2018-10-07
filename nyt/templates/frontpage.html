@@ -4,6 +4,20 @@
 
 <div>
   <h2>Sign in</h2>
+  {% if signinform.errors %}
+    {% for field in signinform %}
+      {% for error in field.errors %}
+        <div>
+          <b>{{ error|escape }}</b>
+        </div>
+      {% endfor %}
+    {% endfor %}
+    {% for error in signinform.non_field_errors %}
+      <div>
+        <b>{{ error|escape }}</b>
+      </div>
+    {% endfor %}
+  {% endif %}
 
   <form action="." method="post">
     {% csrf_token %}
@@ -20,6 +34,27 @@
 
 <div>
   <h3>Don't have an account yet?</h3>
+
+  {% if signupform.non_field_errors %}
+    <div>
+      {{ signupform.non_field_errors }}
+    </div>
+  {% endif %}
+
+  {% if signupform.errors %}
+    {% for field in signupform %}
+      {% for error in field.errors %}
+        <div>
+          <b>{{ error|escape }}</b>
+        </div>
+      {% endfor %}
+    {% endfor %}
+    {% for error in signupform.non_field_errors %}
+      <div>
+        <b>{{ error|escape }}</b>
+      </div>
+    {% endfor %}
+  {% endif %}
 
   <form action="." method="post">
     {% csrf_token %}
