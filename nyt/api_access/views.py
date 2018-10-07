@@ -1,7 +1,9 @@
+import requests
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .forms import ApiCallForm
 
 
 def frontpage(request):
@@ -45,4 +47,14 @@ def signout(request):
 
 @login_required
 def profile(request):
-    return render(request, 'profile.html')
+    if request.method == 'POST':
+        apiform = ApiCallForm(data=request.POST)
+        if apiform.is_valid():
+            base_URL = "http://api.nytimes.com/svc/topstories/v2/home.json?api-key="
+            key = apiform.cleaned_data['key']
+            response = requests.get(base_URL + key)
+            data = response.json()
+    else:
+        data = {}
+    apiform = ApiCallForm()
+    return render(request, 'profile.html', {'apiform': apiform, 'data': data})

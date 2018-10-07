@@ -6,4 +6,23 @@
 
 <a href="{% url 'signout' %}">Logout</a>
 
+<form action=".", method="post">
+
+    {% csrf_token %}
+
+    {{ apiform.as_p }}
+
+    <input type="submit" value="Query" name="apiquery">
+
+</form>
+
+{% for article in data.results  %}
+    <div>
+        <h3>{{ article.title }}</h3>
+        <p>{{ article.abstract }}</p>
+        <a href="{{ article.url }}">read more</a>
+    </div>
+
+{% endfor %}
+
 {% endblock content %}
