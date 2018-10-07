@@ -3,13 +3,16 @@
 {% block content %}
 
 <div>
-
   <h2>Sign in</h2>
 
   <form action="." method="post">
     {% csrf_token %}
 
-    {{ signinform.as_p }}
+    {% for field in signinform %}
+      <div>
+        {{ field }}
+      </div>
+    {% endfor %}
 
     <input type="submit" value="Sign in" name="signinform">
   </form>
@@ -21,7 +24,11 @@
   <form action="." method="post">
     {% csrf_token %}
 
-    {{ signupform.as_p }}
+    {% for field in signupform %}
+      <div>
+        {{ field }}
+      </div>
+    {% endfor %}
 
     <input type="submit" value="Sign up" name="signupform">
   </form>
